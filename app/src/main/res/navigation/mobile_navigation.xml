@@ -9,7 +9,17 @@
         android:id="@+id/navigation_home"
         android:name="com.example.tribalw.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_createNoteFragment"
+            app:destination="@id/createNoteFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/createNoteFragment"
+        android:name="com.example.tribalw.ui.home.CreateNoteFragment"
+        android:label="CreateNoteFragment"
+        tools:layout="@layout/dialog_create"/>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +32,5 @@
         android:name="com.example.tribalw.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
 </navigation>
