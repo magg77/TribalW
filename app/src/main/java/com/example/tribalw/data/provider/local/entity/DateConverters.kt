@@ -1,11 +1,8 @@
-package com.example.tribalw.core.valueObject
+package com.example.tribalw.data.provider.local.entity
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.example.tribalw.data.provider.local.entity.DateConverters
-import com.example.tribalw.data.provider.local.entity.NoteEntity
-import com.example.tribalw.data.provider.local.serviceLocal.LocalServiceInterfaceNote_Dao
+import androidx.room.TypeConverter
+import java.util.Date
+import javax.inject.Inject
 
 
 /**
@@ -29,8 +26,16 @@ import com.example.tribalw.data.provider.local.serviceLocal.LocalServiceInterfac
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
-@Database(entities = [NoteEntity::class], version = 2, exportSchema = true)
-@TypeConverters(DateConverters::class)
-abstract class AppDatabaseRoom : RoomDatabase() {
-    abstract fun noteDato() : LocalServiceInterfaceNote_Dao
+class DateConverters @Inject constructor() {
+
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time
+    }
+
 }

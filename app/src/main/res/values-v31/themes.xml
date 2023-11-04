@@ -1,0 +1,15 @@
+<resources>
+
+    <!--SplashScreen Api android >11-->
+    <style name="SplashScreenTheme" parent="Theme.SplashScreen.IconBackground">
+        <!--Color de fondo de la pantalla de presentación. El valor predeterminado es el del tema ?attr/colorBackground-->
+        <item name="windowSplashScreenBackground">#E6E6E6</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon</item>
+        <item name="windowSplashScreenIconBackgroundColor">#E6E6E6</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.TribalW</item>
+        <!--<item name="android:windowSplashScreenBrandingImage">@drawable/splash_11_4x</item>-->
+        <item name="android:navigationBarColor">#000000</item>
+    </style>
+
+</resources>

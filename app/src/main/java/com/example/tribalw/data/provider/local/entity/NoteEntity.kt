@@ -3,6 +3,8 @@ package com.example.tribalw.data.provider.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import java.util.Date
 
 @Entity(tableName = "note_entity")
 data class NoteEntity(
@@ -11,5 +13,7 @@ data class NoteEntity(
     @ColumnInfo("title")
     val title: String,
     @ColumnInfo("description")
-    val description: String
+    val description: String,
+    @ColumnInfo("dateAdded")
+    val dateAdded: Date
 )

@@ -26,6 +26,7 @@ import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import java.util.Date
 
 
 @AndroidEntryPoint
@@ -123,7 +124,7 @@ class CreateNoteFragment : DialogFragment(){
             alertLoader.dismiss()*/
 
             noteViewModel.saveNotesEntityRoomVM(
-                NoteEntity(title = title, description = description)
+                NoteEntity(title = title, description = description, dateAdded = Date())
             )
 
             Toast.makeText(

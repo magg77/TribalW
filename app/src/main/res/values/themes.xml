@@ -67,4 +67,22 @@
         <item name="android:windowIsFloating">false</item>
     </style>
 
+    <style name="SplashScreenTheme" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">#E6E6E6</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon</item>
+        <item name="windowSplashScreenIconBackgroundColor">#B4B4B4</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#E6E6E6</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">#000000</item>
+
+        <item name="postSplashScreenTheme">@style/Theme.TribalW</item>
+    </style>
+
 </resources>

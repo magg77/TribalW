@@ -34,7 +34,7 @@ interface LocalServiceInterfaceNote_Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveNoteRoomDao(noteEntity: NoteEntity)
 
-    @Query("SELECT * FROM note_entity")
+    @Query("SELECT * FROM note_entity ORDER BY dateAdded ASC")
     suspend fun getAllNoteRoomDao(): List<NoteEntity>
 
 

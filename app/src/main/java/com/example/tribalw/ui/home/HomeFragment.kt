@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tribalw.R
+import com.example.tribalw.core.valueObject.Resource
 import com.example.tribalw.data.provider.local.entity.NoteEntity
 import com.example.tribalw.databinding.FragmentHomeBinding
 import com.example.tribalw.presentation.ViewModelNote
@@ -45,6 +49,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupLayout()
         setupObservers()
         eventsClick()
     }
@@ -70,13 +76,49 @@ class HomeFragment : Fragment() {
                 }
             }
         )
+    }
 
+    private fun setupLayout() {
+        binding.rvHomeFragment.layoutManager = LinearLayoutManager(
+            requireContext(), LinearLayoutManager.VERTICAL, false
+        )
     }
 
     private fun setupObservers() {
-        noteViewModel.saveNotesEntityRoomVM(
-            NoteEntity(title = "Enviar link del Repo Github", description =  "Prueba de talento android, guardado de datos local proveedor ROOM")
-        )
+        noteViewModel.getAllNotesRoomVM().observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.progressbarHome.visibility = View.VISIBLE
+                    /*binding.swipeHome.isRefreshing = true*/
+                }
+
+                is Resource.Success -> {
+                    binding.progressbarHome.visibility = View.GONE
+                    Log.i("lista", "${it.data}")
+
+                    binding.rvHomeFragment.adapter = HomeAdapter(
+                        requireContext(),
+                        it.data,
+                        onItemClickListener = {
+                            var itemSelected = it
+                        }
+                    )
+
+                }
+
+                is Resource.Failure -> {
+                    binding.progressbarHome.visibility = View.GONE
+
+                    Log.e("homne", "${it.exception}")
+                    Toast.makeText(
+                        requireContext(),
+                        "Ocurrio un error al traer los datos: ${it.exception}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            }
+        })
     }
 
     private fun eventsClick() {

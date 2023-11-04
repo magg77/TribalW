@@ -1,11 +1,12 @@
-package com.example.tribalw.core.valueObject
+package com.example.tribalw.ui.home
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.example.tribalw.data.provider.local.entity.DateConverters
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tribalw.core.valueObject.BaseViewHolder
 import com.example.tribalw.data.provider.local.entity.NoteEntity
-import com.example.tribalw.data.provider.local.serviceLocal.LocalServiceInterfaceNote_Dao
+import com.example.tribalw.databinding.HomelistBinding
 
 
 /**
@@ -29,8 +30,41 @@ import com.example.tribalw.data.provider.local.serviceLocal.LocalServiceInterfac
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
-@Database(entities = [NoteEntity::class], version = 2, exportSchema = true)
-@TypeConverters(DateConverters::class)
-abstract class AppDatabaseRoom : RoomDatabase() {
-    abstract fun noteDato() : LocalServiceInterfaceNote_Dao
+class HomeAdapter(
+    private val context: Context,
+    private val list: List<NoteEntity>,
+    private val onItemClickListener: (String) -> Unit
+) : RecyclerView.Adapter<BaseViewHolder<*>>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+        val itemBinding = HomelistBinding.inflate(LayoutInflater.from(context), parent, false)
+        val holder = MainViewHolder(itemBinding)
+        return holder
+    }
+
+    override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
+        when (holder) {
+            is MainViewHolder -> {
+                holder.bind(list[position], position)
+            }
+        }
+    }
+
+    inner class MainViewHolder(val viewListAdapter: HomelistBinding) :
+        BaseViewHolder<String>(viewListAdapter.root) {
+
+        override fun bind(item: NoteEntity, position: Int) {
+            viewListAdapter.tvRecylerViewTitle.text = item.title
+            viewListAdapter.tvRecylerViewDescription.text = item.description
+
+            //funciona ok
+            viewListAdapter.contentCardView.setOnClickListener {
+                onItemClickListener(position.toString())
+            }
+
+        }
+    }
+
 }

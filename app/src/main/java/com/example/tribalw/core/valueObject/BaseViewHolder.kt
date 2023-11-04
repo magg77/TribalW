@@ -1,11 +1,8 @@
 package com.example.tribalw.core.valueObject
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.example.tribalw.data.provider.local.entity.DateConverters
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tribalw.data.provider.local.entity.NoteEntity
-import com.example.tribalw.data.provider.local.serviceLocal.LocalServiceInterfaceNote_Dao
 
 
 /**
@@ -29,8 +26,9 @@ import com.example.tribalw.data.provider.local.serviceLocal.LocalServiceInterfac
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
-@Database(entities = [NoteEntity::class], version = 2, exportSchema = true)
-@TypeConverters(DateConverters::class)
-abstract class AppDatabaseRoom : RoomDatabase() {
-    abstract fun noteDato() : LocalServiceInterfaceNote_Dao
+abstract class BaseViewHolder<T>(itemView: View)
+    : RecyclerView.ViewHolder(itemView) {
+
+    abstract fun bind(item: NoteEntity, position: Int)
+
 }
