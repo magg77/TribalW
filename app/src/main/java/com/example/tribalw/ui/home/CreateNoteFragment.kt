@@ -30,11 +30,11 @@ import java.util.Date
 
 
 @AndroidEntryPoint
-class CreateNoteFragment : DialogFragment(){
+class CreateNoteFragment : DialogFragment() {
 
     private val noteViewModel by viewModels<ViewModelNote>()
-    private lateinit var alert : AlertDialog.Builder
-    private lateinit var alertLoader : AlertDialog
+    private lateinit var alert: AlertDialog.Builder
+    private lateinit var alertLoader: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,8 @@ class CreateNoteFragment : DialogFragment(){
             observerState()
         }
 
-        val toolbar: MaterialToolbar = view.findViewById(R.id.materialToolbar_createNote) as MaterialToolbar
+        val toolbar: MaterialToolbar =
+            view.findViewById(R.id.materialToolbar_createNote) as MaterialToolbar
         val context = (context as ContextWrapper).baseContext
         (context as AppCompatActivity).setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { dismiss() }
@@ -77,25 +78,23 @@ class CreateNoteFragment : DialogFragment(){
     override fun onResume() {
         super.onResume()
 
-        /*(dialog as ComponentDialog).onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-            dismiss()
-        }*/
 
-        requireActivity().onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    dismiss()
-                }
-            })
-
+        (dialog as ComponentDialog)
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner) {
+                // handle back press
+                dismiss()
+            }
 
 
     }
 
 
     private fun observerState() {
-        val titleTextInputEditText: TextInputEditText = view?.findViewById(R.id.ed_title) as TextInputEditText
-        val descriptionTextInputEditText: TextInputEditText = view?.findViewById(R.id.ed_description) as TextInputEditText
+        val titleTextInputEditText: TextInputEditText =
+            view?.findViewById(R.id.ed_title) as TextInputEditText
+        val descriptionTextInputEditText: TextInputEditText =
+            view?.findViewById(R.id.ed_description) as TextInputEditText
 
         var title = titleTextInputEditText.text.toString()
         var description = descriptionTextInputEditText.text.toString()
@@ -147,7 +146,6 @@ class CreateNoteFragment : DialogFragment(){
 
         alertLoader = alert.create()
     }
-
 
 
 }

@@ -12,12 +12,12 @@ plugins {
 
 android {
     namespace = "com.example.tribalw"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.tribalw"
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -72,10 +72,10 @@ android {
 dependencies {
 
     //core-android
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     //live-data & view-model & navigation
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${rootProject.extra["liveData"]}")
